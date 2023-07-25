@@ -20,6 +20,20 @@ function reducer(state, action) {
 }
 const ToyContext = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, init);
+  async function getToys() {
+    try {
+      const { data, headers } = await axios.get(
+        `${API}${window.location.search}`
+      );
+
+      dispatch({
+        type: ACTIONS.toys,
+        payload: data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
   async function addToy(newToy) {
     try {
       await axios.post(API, newToy);
@@ -27,7 +41,23 @@ const ToyContext = ({ children }) => {
       console.log(e);
     }
   }
-  const value = { addToy };
+  async function deleteToy(id) {
+    try {
+      await axios.delete(`${API}/${id}`);
+      getToys();
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async function editToy(id, newToy) {
+    try {
+      await axios.patch(`${API}/${id}`, newToy);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  const value = { toys: state.toys, getToys, addToy, deleteToy, editToy };
   return <toyContext.Provider value={value}>{children}</toyContext.Provider>;
 };
 
