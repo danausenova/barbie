@@ -6,10 +6,14 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
 import { alpha, styled } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
+import { useRegistrContext } from "../contexts/RegistrContext";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -54,12 +58,22 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const pages = [
   { title: "Home", path: "/" },
   { title: "Catalog", path: "/catalog" },
-  { title: "Add", path: "/add" },
 ];
 
+const adminPages = [{ title: "ADD", path: "/add" }];
+
 export default function Navbar() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const { user, logout, isAdmin } = useRegistrContext();
+
   const navigate = useNavigate();
+
+  function getPages() {
+    if (isAdmin()) {
+      return pages.concat(adminPages);
+    } else {
+      return pages;
+    }
+  }
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -75,15 +89,15 @@ export default function Navbar() {
             <MenuIcon />
           </IconButton>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((item) => (
+            {getPages().map((page) => (
               <Button
-                onClick={() => navigate(item.path)}
+                onClick={() => navigate(page.path)}
                 // component={Link}
                 // to={item.path}
-                key={item.title}
+                key={page.title}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                {item.title}
+                {page.title}
               </Button>
             ))}
           </Box>
@@ -100,7 +114,19 @@ export default function Navbar() {
               inputProps={{ "aria-label": "search" }}
             />
           </Search>
-          <Button color="inherit">Login</Button>
+          {!user ? (
+            <Button component={Link} to="/auth" sx={{ color: "#F0F0F0" }}>
+              Login
+            </Button>
+          ) : (
+            <Button
+              onClick={() => {
+                logout();
+              }}
+            >
+              Logout
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
     </Box>
