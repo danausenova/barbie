@@ -154,7 +154,6 @@ export default function AddToyPage() {
                   name="category"
                 >
                   <MenuItem value={"doll"}>Doll</MenuItem>
-                  <MenuItem value={"gameSet"}>Game Set</MenuItem>
                   <MenuItem value={"dollhouse"}>Dollhouse</MenuItem>
                   <MenuItem value={"cars"}>Cars</MenuItem>
                 </Select>
