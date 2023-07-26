@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useReducer } from "react";
 import { ACTIONS, API } from "../utils/consts";
 import axios from "axios";
+import { async } from "q";
 
 const toyContext = createContext();
 export function useToyContext() {
@@ -8,11 +9,14 @@ export function useToyContext() {
 }
 const init = {
   toys: [],
+  toy: {},
 };
 function reducer(state, action) {
   switch (action.type) {
     case ACTIONS.toys:
       return { ...state, toys: action.payload };
+    case ACTIONS.toy:
+      return { ...state, toy: action.payload };
 
     default:
       return state;
@@ -50,6 +54,19 @@ const ToyContext = ({ children }) => {
     }
   }
 
+  async function getOneToy(id) {
+    try {
+      const { data } = await axios.get(`${API}/${id}`);
+
+      dispatch({
+        type: ACTIONS.toy,
+        payload: data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   async function editToy(id, newToy) {
     try {
       await axios.patch(`${API}/${id}`, newToy);
@@ -57,7 +74,15 @@ const ToyContext = ({ children }) => {
       console.log(e);
     }
   }
-  const value = { toys: state.toys, getToys, addToy, deleteToy, editToy };
+  const value = {
+    toys: state.toys,
+    toy: state.toy,
+    getOneToy,
+    getToys,
+    addToy,
+    deleteToy,
+    editToy,
+  };
   return <toyContext.Provider value={value}>{children}</toyContext.Provider>;
 };
 
