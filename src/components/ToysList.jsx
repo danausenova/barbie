@@ -5,7 +5,9 @@ import ToyItem from "./ToyItem";
 const ToysList = () => {
   const { toys, getToys } = useToyContext();
   useEffect(() => {
-    getToys();
+    setTimeout(() => {
+      getToys();
+    }, 100);
   }, []);
 
   return (
@@ -19,7 +21,7 @@ const ToysList = () => {
       }}
     >
       {toys.map((item) => (
-        <ToyItem item={item} />
+        <ToyItem item={item} key={item.id} />
       ))}
     </div>
   );
