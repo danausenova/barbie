@@ -7,19 +7,18 @@ import { BrowserRouter } from "react-router-dom";
 import RegistrContext from "./contexts/RegistrContext";
 
 import ToyContext from "./contexts/ToyContext";
+import CartContext from "./contexts/CartContext";
 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
-
-    <RegistrContext>
-       <ToyContext>
-      <App />
-    </ToyContext>
+<RegistrContext>
+    <CartContext>
+      <ToyContext>
+        <App />
+      </ToyContext>
+    </CartContext>
     </RegistrContext>
-
-  
-
   </BrowserRouter>
 );

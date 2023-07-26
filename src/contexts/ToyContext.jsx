@@ -8,6 +8,8 @@ import React, {
 import { ACTIONS, API } from "../utils/consts";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
+import { async } from "q";
+
 
 const toyContext = createContext();
 export function useToyContext() {
@@ -16,11 +18,14 @@ export function useToyContext() {
 
 const init = {
   toys: [],
+  toy: {},
 };
 function reducer(state, action) {
   switch (action.type) {
     case ACTIONS.toys:
       return { ...state, toys: action.payload };
+    case ACTIONS.toy:
+      return { ...state, toy: action.payload };
 
     default:
       return state;
@@ -58,6 +63,19 @@ const ToyContext = ({ children }) => {
     }
   }
 
+  async function getOneToy(id) {
+    try {
+      const { data } = await axios.get(`${API}/${id}`);
+
+      dispatch({
+        type: ACTIONS.toy,
+        payload: data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   async function editToy(id, newToy) {
     try {
       await axios.patch(`${API}/${id}`, newToy);
@@ -67,6 +85,8 @@ const ToyContext = ({ children }) => {
   }
   const value = {
     toys: state.toys,
+    toy: state.toy,
+    getOneToy,
     getToys,
     addToy,
     deleteToy,
