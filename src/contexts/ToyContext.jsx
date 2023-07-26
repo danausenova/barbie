@@ -1,16 +1,26 @@
-import React, { createContext, useContext, useReducer, useState } from "react";
-import { ACTIONS, API, LIMIT } from "../utils/consts";
+
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
+import { ACTIONS, API, LIMIT  } from "../utils/consts";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
+import { async } from "q";
+
 
 const toyContext = createContext();
 export function useToyContext() {
   return useContext(toyContext);
 }
+
 const init = {
   toys: [],
-  toy: null,
   pageTotalCount: 1,
+  toy: {},
 };
 
 function reducer(state, action) {
@@ -19,6 +29,9 @@ function reducer(state, action) {
       return { ...state, toys: action.payload };
     case ACTIONS.pageTotalCount:
       return { ...state, pageTotalCount: action.payload };
+    case ACTIONS.toy:
+      return { ...state, toy: action.payload };
+
     default:
       return state;
   }
@@ -73,6 +86,19 @@ const ToyContext = ({ children }) => {
     }
   }
 
+  async function getOneToy(id) {
+    try {
+      const { data } = await axios.get(`${API}/${id}`);
+
+      dispatch({
+        type: ACTIONS.toy,
+        payload: data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   async function editToy(id, newToy) {
     try {
       await axios.patch(`${API}/${id}`, newToy);
@@ -86,6 +112,8 @@ const ToyContext = ({ children }) => {
     setSearchParams,
     pageTotalCount: state.pageTotalCount,
     page,
+    toy: state.toy,
+    getOneToy,
     getToys,
     addToy,
     deleteToy,

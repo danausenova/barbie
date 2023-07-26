@@ -4,6 +4,8 @@ import { Box, Pagination } from "@mui/material";
 import { useToyContext } from "../contexts/ToyContext";
 import { useSearchParams } from "react-router-dom";
 import { LIMIT } from "../utils/consts";
+import Filter from "../components/Filter";
+
 
 const CatalogPage = () => {
   const { pageTotalCount, page, setPage, getToys } = useToyContext();
@@ -24,6 +26,9 @@ const CatalogPage = () => {
 
   return (
     <div>
+      <Box sx={{ maxWidth: "max-content", margin: "30px auto" }}>
+        <Filter />
+      </Box>
       <ToysList />
       <Box
         sx={{

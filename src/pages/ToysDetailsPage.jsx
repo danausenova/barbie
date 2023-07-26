@@ -3,13 +3,29 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import { Container } from "react-bootstrap";
 import { Box } from "@mui/material";
+import { useToyContext } from "../contexts/ToyContext";
+import { useNavigate, useParams } from "react-router-dom";
 
-export default function WovenImageList() {
-  const itemData = [
-    "https://cdn.shopify.com/s/files/1/0568/1132/3597/products/wjj3rqve8xdedvcnx5qc.jpg?v=1685128292",
-    "https://cdn.shopify.com/s/files/1/0568/1132/3597/products/be8h0phjcfc8gelubdgv.jpg?v=1685128292",
-    "https://cdn.shopify.com/s/files/1/0568/1132/3597/files/HP5A4D_1.jpg?v=1685550728",
-  ];
+export default function ToysDetailsPage() {
+  const { getOneToy, toy } = useToyContext();
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const [oneToy, setOneToy] = React.useState({
+    title: "",
+    price: "",
+    description: "",
+    image1: "",
+    image2: "",
+    image3: "",
+  });
+
+  React.useEffect(() => {
+    getOneToy(id);
+  }, []);
+
+  React.useEffect(() => {
+    setOneToy(toy);
+  }, [toy]);
 
   return (
     <Container
@@ -18,35 +34,43 @@ export default function WovenImageList() {
         display: "flex",
         justifyContent: "space-around",
         alignItems: "center",
+        gap: "30px",
       }}
     >
       <ImageList
-        sx={{ width: 500, height: 450 }}
+        sx={{ width: 800, height: 450 }}
         variant="standard"
         cols={3}
         gap={8}
       >
-        {itemData.map((item) => (
-          <ImageListItem key={item}>
-            <img
-              src={`${item}?w=161&fit=crop&auto=format`}
-              srcSet={`${item}?w=161&fit=crop&auto=format&dpr=2 2x`}
-              alt={item}
-              loading="lazy"
-            />
-          </ImageListItem>
-        ))}
+        <ImageListItem>
+          <img src={oneToy.image1} width="500" />
+        </ImageListItem>
+        <ImageListItem>
+          <img src={oneToy.image2} width="500" />
+        </ImageListItem>
+        <ImageListItem>
+          <img src={oneToy.image3} width="500" />
+        </ImageListItem>
       </ImageList>
-      {itemData.map((item) => {
-        <Box
-          sx={{ width: 500, height: 450, backgroundColor: "yellow" }}
-          variant="standard"
-        >
-          <h3>{item.title}</h3>
-          <p>{item.description}</p>
-          <p>{`${item.price}$`}</p>
-        </Box>;
-      })}
+      <Box
+        sx={{
+          width: 650,
+          height: 500,
+          backgroundColor: "#FFBEE3",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          margin: "0 auto",
+          padding: "10px",
+        }}
+        variant="standard"
+      >
+        <h3>{oneToy.title}</h3>
+        <p>{oneToy.description}</p>
+        <h3>{`${oneToy.price}$`}</h3>
+      </Box>
     </Container>
   );
 }
