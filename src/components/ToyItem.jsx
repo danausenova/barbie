@@ -11,9 +11,10 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import { Button, Menu, MenuItem } from "@mui/material";
 import { useToyContext } from "../contexts/ToyContext";
-import { useNavigate } from "react-router-dom";
 import { useCartContext } from "../contexts/CartContext";
 import ClearIcon from "@mui/icons-material/Clear";
+import { useNavigate, useParams } from "react-router-dom";
+
 
 export default function ToyItem({ item }) {
   const { deleteToy } = useToyContext();
@@ -24,6 +25,10 @@ export default function ToyItem({ item }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
   const open = Boolean(anchorEl);
+  const ClickNavigate = () => {
+    navigate(`/details/${item.id}`);
+  };
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -41,6 +46,7 @@ export default function ToyItem({ item }) {
   const handleMouseLeave = () => {
     setHovered(false);
   };
+
   return (
     <Card
       sx={{
@@ -59,6 +65,7 @@ export default function ToyItem({ item }) {
         height="350"
         image={hovered ? item.image2 : item.image1}
         alt={item.title}
+        onClick={ClickNavigate}
       />
       <CardContent>
         <IconButton
