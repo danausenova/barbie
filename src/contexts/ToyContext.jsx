@@ -1,11 +1,19 @@
-import React, { createContext, useContext, useReducer } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 import { ACTIONS, API } from "../utils/consts";
 import axios from "axios";
+import { useSearchParams } from "react-router-dom";
 
 const toyContext = createContext();
 export function useToyContext() {
   return useContext(toyContext);
 }
+
 const init = {
   toys: [],
 };
@@ -57,7 +65,13 @@ const ToyContext = ({ children }) => {
       console.log(e);
     }
   }
-  const value = { toys: state.toys, getToys, addToy, deleteToy, editToy };
+  const value = {
+    toys: state.toys,
+    getToys,
+    addToy,
+    deleteToy,
+    editToy,
+  };
   return <toyContext.Provider value={value}>{children}</toyContext.Provider>;
 };
 
