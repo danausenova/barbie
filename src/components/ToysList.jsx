@@ -19,7 +19,7 @@ const ToysList = () => {
       }}
     >
       {toys.map((item) => (
-        <ToyItem item={item} />
+        <ToyItem item={item} key={item.id} />
       ))}
     </div>
   );

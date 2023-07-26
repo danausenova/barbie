@@ -6,7 +6,9 @@ import AddToyPage from "../pages/AddToyPage";
 import EditToyPage from "../pages/EditToyPage";
 import RegistrPage from "../pages/RegistrPage";
 import CatalogPage from "../pages/CatalogPage";
+import CartPage from "../pages/CartPage";
 import ToysDetailsPage from "../pages/ToysDetailsPage";
+
 
 const MainRoutes = () => {
   return (
@@ -17,6 +19,7 @@ const MainRoutes = () => {
         <Route path="/add" element={<AddToyPage />} />
         <Route path="/edit/:id" element={<EditToyPage />} />
         <Route path="/auth" element={<RegistrPage />} />
+        <Route path="/cart" element={<CartPage />} />
         <Route path="/details/:id" element={<ToysDetailsPage />} />
       </Route>
     </Routes>

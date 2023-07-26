@@ -11,13 +11,17 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import { Button, Menu, MenuItem } from "@mui/material";
 import { useToyContext } from "../contexts/ToyContext";
+import { useCartContext } from "../contexts/CartContext";
+import ClearIcon from "@mui/icons-material/Clear";
 import { useNavigate, useParams } from "react-router-dom";
+
 
 export default function ToyItem({ item }) {
   const { deleteToy } = useToyContext();
+  const { addToyToCart, deleteToyFromCart, isAlreadyInCart } = useCartContext();
   const [hovered, setHovered] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
-  const [isInCart, setIsInCart] = useState(false);
+
   const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
   const open = Boolean(anchorEl);
@@ -34,9 +38,7 @@ export default function ToyItem({ item }) {
   const handleFavoriteClick = () => {
     setIsFavorite(!isFavorite);
   };
-  const handleCartClick = () => {
-    setIsInCart(!isInCart);
-  };
+
   const handleMouseEnter = () => {
     setHovered(true);
   };
@@ -132,18 +134,30 @@ export default function ToyItem({ item }) {
         >
           <FavoriteIcon />
         </IconButton>
-        <ShoppingBagOutlinedIcon
-          aria-label="add to cart"
-          onClick={handleCartClick}
-          style={{
-            position: "absolute",
-            bottom: "28px",
-            left: "50px",
-            color: isInCart ? "#aa00ff" : "inherit",
-          }}
-        >
-          <ShareIcon />
-        </ShoppingBagOutlinedIcon>
+        {isAlreadyInCart(item.id) ? (
+          <IconButton
+            onClick={() => deleteToyFromCart(item.id)}
+            style={{
+              position: "absolute",
+              bottom: "20px",
+              left: "45px",
+            }}
+          >
+            <ClearIcon color="secondary" />
+          </IconButton>
+        ) : (
+          <ShoppingBagOutlinedIcon
+            aria-label="add to cart"
+            onClick={() => addToyToCart(item)}
+            style={{
+              position: "absolute",
+              bottom: "28px",
+              left: "50px",
+            }}
+          >
+            <ShareIcon color="secondary" />
+          </ShoppingBagOutlinedIcon>
+        )}
       </CardActions>
     </Card>
   );
