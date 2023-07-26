@@ -4,12 +4,15 @@ import "./index.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import ToyContext from "./contexts/ToyContext";
+import CartContext from "./contexts/CartContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
-    <ToyContext>
-      <App />
-    </ToyContext>
+    <CartContext>
+      <ToyContext>
+        <App />
+      </ToyContext>
+    </CartContext>
   </BrowserRouter>
 );
