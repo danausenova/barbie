@@ -13,6 +13,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
 import { alpha, styled } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
+import LiveSearch from "./LiveSearch";
 import { useRegistrContext } from "../contexts/RegistrContext";
 
 const Search = styled("div")(({ theme }) => ({
@@ -91,6 +92,7 @@ export default function Navbar() {
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {getPages().map((page) => (
               <Button
+
                 onClick={() => navigate(page.path)}
                 // component={Link}
                 // to={item.path}
@@ -105,15 +107,10 @@ export default function Navbar() {
           <Typography variant="h3" component="div" sx={{ flexGrow: 3 }}>
             Barbie Shop
           </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search>
+
+
+          <LiveSearch />
+          
           {!user ? (
             <Button component={Link} to="/auth" sx={{ color: "#F0F0F0" }}>
               Login
@@ -127,6 +124,7 @@ export default function Navbar() {
               Logout
             </Button>
           )}
+
         </Toolbar>
       </AppBar>
     </Box>

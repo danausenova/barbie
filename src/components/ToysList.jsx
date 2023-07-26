@@ -5,7 +5,9 @@ import ToyItem from "./ToyItem";
 const ToysList = () => {
   const { toys, getToys } = useToyContext();
   useEffect(() => {
-    getToys();
+    setTimeout(() => {
+      getToys();
+    }, 100);
   }, []);
 
   return (
