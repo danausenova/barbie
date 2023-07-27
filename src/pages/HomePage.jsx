@@ -8,7 +8,7 @@ import picture6 from "../components/picture/BB_ASpot_D_NonMovie_1440x@2x.webp";
 
 function HomePage() {
   return (
-    <Carousel data-bs-theme="dark">
+    <Carousel data-bs-theme="light">
       <Carousel.Item>
         <img className="d-block w-100" src={picture5} alt="First slide" />
         <Carousel.Caption>

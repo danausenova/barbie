@@ -36,7 +36,6 @@ const CatalogPage = () => {
           count={pageTotalCount}
           page={page}
           onChange={(_, val) => setPage(val)}
-          sx={{ backgroundColor: "pink" }}
         />
       </Box>
     </div>

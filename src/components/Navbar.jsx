@@ -152,6 +152,7 @@ export default function Navbar({ window }) {
                 <MenuItem onClick={handleCloseUserMenu}>
                   <Typography
                     textAlign="center"
+                    element={Button}
                     onClick={() => navigate("/favorite")}
                   >
                     Favorites
@@ -160,6 +161,7 @@ export default function Navbar({ window }) {
                 <MenuItem onClick={handleCloseUserMenu}>
                   <Typography
                     textAlign="center"
+                    element={Button}
                     onClick={() => navigate("/cart")}
                   >
                     Cart

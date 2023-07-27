@@ -10,7 +10,7 @@ export default function Footer() {
         fontSize: "20px",
       }}
     >
-      <section className="mb-3">
+      <section className="mb-1">
         <MDBBtn
           rippleColor="dark"
           color="link"
