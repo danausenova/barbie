@@ -77,53 +77,6 @@ export default function App() {
           </MDBBtn>
         </section>
       </MDBContainer>
-      <div>
-        <p>Accepted Payment Methods</p>
-        <MDBBtn
-          rippleColor="2B2730"
-          color="link"
-          floating
-          size="lg"
-          className="text-dark m-1"
-          href="#!"
-          role="button"
-        >
-          <MDBIcon fab icon="cc-paypal" />
-        </MDBBtn>
-        <MDBBtn
-          rippleColor="dark"
-          color="link"
-          floating
-          size="lg"
-          className="text-dark m-1"
-          href="#!"
-          role="button"
-        >
-          <MDBIcon fab icon="cc-visa" />
-        </MDBBtn>
-        <MDBBtn
-          rippleColor="dark"
-          color="link"
-          floating
-          size="lg"
-          className="text-dark m-1"
-          href="#!"
-          role="button"
-        >
-          <MDBIcon fab icon="cc-mastercard" />
-        </MDBBtn>
-        <MDBBtn
-          rippleColor="dark"
-          color="link"
-          floating
-          size="lg"
-          className="text-dark m-1"
-          href="#!"
-          role="button"
-        >
-          <MDBIcon fab icon="cc-amazon-pay" />
-        </MDBBtn>
-      </div>
       <div
         className="text-center text-dark p-3"
         style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}

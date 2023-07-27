@@ -9,6 +9,7 @@ import CatalogPage from "../pages/CatalogPage";
 import CartPage from "../pages/CartPage";
 import ToysDetailsPage from "../pages/ToysDetailsPage";
 import FavoritePage from "../pages/FavoritePage";
+import SecondLayout from "../layouts/SecondLayout";
 
 const MainRoutes = () => {
   return (
@@ -16,12 +17,14 @@ const MainRoutes = () => {
       <Route element={<MainLayout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/catalog" element={<CatalogPage />} />
-        <Route path="/add" element={<AddToyPage />} />
         <Route path="/edit/:id" element={<EditToyPage />} />
         <Route path="/auth" element={<RegistrPage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/details/:id" element={<ToysDetailsPage />} />
         <Route path="/favorite" element={<FavoritePage />} />
+      </Route>
+      <Route element={<SecondLayout />}>
+        <Route path="/add" element={<AddToyPage />} />
       </Route>
     </Routes>
   );
