@@ -5,56 +5,23 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-
-import SearchIcon from "@mui/icons-material/Search";
-import InputBase from "@mui/material/InputBase";
-import { alpha, styled } from "@mui/material";
+import {
+  Avatar,
+  Drawer,
+  ImageList,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Tooltip,
+} from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import LiveSearch from "./LiveSearch";
 import { useRegistrContext } from "../contexts/RegistrContext";
-
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
-  },
-}));
+import Logo from "../components/picture/logo2.svg";
+import Filter from "./Filter";
 
 const pages = [
   { title: "Home", path: "/" },
@@ -63,10 +30,21 @@ const pages = [
 
 const adminPages = [{ title: "ADD", path: "/add" }];
 
-export default function Navbar() {
+export default function Navbar({ window }) {
   const { user, logout, isAdmin } = useRegistrContext();
-
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
   const navigate = useNavigate();
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen((prevState) => !prevState);
+  };
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
 
   function getPages() {
     if (isAdmin()) {
@@ -75,27 +53,61 @@ export default function Navbar() {
       return pages;
     }
   }
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ bgcolor: "#FF0592" }}>
-        <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-          <IconButton
-            size="large"
-            edge="start"
-            color="white"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
+        <Toolbar
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Box component="nav">
+            <ImageList component={Button} onClick={handleDrawerToggle}>
+              <img width="50px" src={Logo} style={{ marginTop: "5px" }} />
+            </ImageList>
+            <Drawer
+              container={container}
+              variant="temporary"
+              open={mobileOpen}
+              onClose={handleDrawerToggle}
+              ModalProps={{
+                keepMounted: true, // Better open performance on mobile.
+              }}
+              sx={{
+                display: { xs: "block", sm: "block" },
+                "& .MuiDrawer-paper": {
+                  boxSizing: "border-box",
+                  width: "30%",
+                },
+              }}
+            >
+              <List sx={{ flexGrow: 1, display: { xs: "block", md: "none" } }}>
+                {getPages().map((page) => (
+                  <ListItem key={page.title}>
+                    <ListItemButton
+                      sx={{ textAlign: "center" }}
+                      onClick={() => navigate(page.path)}
+                    >
+                      <ListItemText primary={page.title} />
+                    </ListItemButton>
+                  </ListItem>
+                ))}
+              </List>
+              <List>
+                <Filter />
+              </List>
+            </Drawer>
+          </Box>
+
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {getPages().map((page) => (
               <Button
-
                 onClick={() => navigate(page.path)}
-                // component={Link}
-                // to={item.path}
                 key={page.title}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
@@ -104,27 +116,68 @@ export default function Navbar() {
             ))}
           </Box>
 
-          <Typography variant="h3" component="div" sx={{ flexGrow: 3 }}>
-            Barbie Shop
-          </Typography>
-
-
           <LiveSearch />
-          
+
           {!user ? (
             <Button component={Link} to="/auth" sx={{ color: "#F0F0F0" }}>
               Login
             </Button>
           ) : (
-            <Button
-              onClick={() => {
-                logout();
-              }}
-            >
-              Logout
-            </Button>
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar
+                    alt="Remy Sharp"
+                    src="https://www.youloveit.ru/uploads/posts/2019-05/1558886385_youloveit_ru_avatarki_barbie_priklucheniya_v_dome_mechty05.png"
+                  />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography
+                    textAlign="center"
+                    onClick={() => navigate("/favorite")}
+                  >
+                    Favorites
+                  </Typography>
+                </MenuItem>{" "}
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography
+                    textAlign="center"
+                    onClick={() => navigate("/cart")}
+                  >
+                    Cart
+                  </Typography>
+                </MenuItem>{" "}
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography
+                    element={Button}
+                    textAlign="center"
+                    onClick={() => {
+                      logout();
+                    }}
+                  >
+                    LogOut
+                  </Typography>
+                </MenuItem>
+              </Menu>
+            </Box>
           )}
-
         </Toolbar>
       </AppBar>
     </Box>
