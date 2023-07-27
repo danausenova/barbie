@@ -6,7 +6,6 @@ import { useSearchParams } from "react-router-dom";
 import { LIMIT } from "../utils/consts";
 import Filter from "../components/Filter";
 
-
 const CatalogPage = () => {
   const { pageTotalCount, page, setPage, getToys } = useToyContext();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -26,9 +25,6 @@ const CatalogPage = () => {
 
   return (
     <div>
-      <Box sx={{ maxWidth: "max-content", margin: "30px auto" }}>
-        <Filter />
-      </Box>
       <ToysList />
       <Box
         sx={{
