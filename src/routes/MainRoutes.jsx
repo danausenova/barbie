@@ -17,14 +17,14 @@ const MainRoutes = () => {
       <Route element={<MainLayout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/catalog" element={<CatalogPage />} />
-        <Route path="/edit/:id" element={<EditToyPage />} />
         <Route path="/auth" element={<RegistrPage />} />
-        <Route path="/cart" element={<CartPage />} />
         <Route path="/details/:id" element={<ToysDetailsPage />} />
-        <Route path="/favorite" element={<FavoritePage />} />
       </Route>
       <Route element={<SecondLayout />}>
         <Route path="/add" element={<AddToyPage />} />
+        <Route path="/edit/:id" element={<EditToyPage />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/favorite" element={<FavoritePage />} />
       </Route>
     </Routes>
   );
