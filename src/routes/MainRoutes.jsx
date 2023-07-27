@@ -8,7 +8,7 @@ import RegistrPage from "../pages/RegistrPage";
 import CatalogPage from "../pages/CatalogPage";
 import CartPage from "../pages/CartPage";
 import ToysDetailsPage from "../pages/ToysDetailsPage";
-
+import FavoritePage from "../pages/FavoritePage";
 
 const MainRoutes = () => {
   return (
@@ -21,6 +21,7 @@ const MainRoutes = () => {
         <Route path="/auth" element={<RegistrPage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/details/:id" element={<ToysDetailsPage />} />
+        <Route path="/favorite" element={<FavoritePage />} />
       </Route>
     </Routes>
   );

@@ -1,3 +1,7 @@
+.body-favorite {
+  background-color: #ffbee3;
+}
+
 .addBackground {
   background-image: url("../src/components/picture/barbiefoto1.webp");
   background-repeat: no-repeat;

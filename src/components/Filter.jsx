@@ -16,8 +16,6 @@ const Filter = () => {
 
   useEffect(() => {
     const currentParams = Object.fromEntries([...searchParams]);
-    console.log(searchParams);
-    console.log(currentParams);
 
     if (category === "all") {
       const { _page, q } = currentParams;
