@@ -33,18 +33,24 @@ const Filter = () => {
   }, [category]);
 
   return (
-    <ToggleButtonGroup
-      color="primary"
-      value={category}
-      exclusive
-      onChange={handleChange}
-      aria-label="Platform"
-    >
-      <ToggleButton value="all">All</ToggleButton>
-      <ToggleButton value="doll">Doll</ToggleButton>
-      <ToggleButton value="dollhouse">Dollhouse</ToggleButton>
-      <ToggleButton value="cars">Cars</ToggleButton>
-    </ToggleButtonGroup>
+    <>
+      <h4 style={{ textAlign: "center", color: "black", margin: "4% 0" }}>
+        Category
+      </h4>
+      <ToggleButtonGroup
+        color="secondary"
+        value={category}
+        exclusive
+        onChange={handleChange}
+        aria-label="Platform"
+        sx={{ display: "flex", flexDirection: "column" }}
+      >
+        <ToggleButton value="all">All</ToggleButton>
+        <ToggleButton value="doll">Doll</ToggleButton>
+        <ToggleButton value="dollhouse">Dollhouse</ToggleButton>
+        <ToggleButton value="cars">Cars</ToggleButton>
+      </ToggleButtonGroup>
+    </>
   );
 };
 

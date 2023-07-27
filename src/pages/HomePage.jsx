@@ -10,7 +10,7 @@ function HomePage() {
   return (
     <Carousel data-bs-theme="dark">
       <Carousel.Item>
-        <img className="d-block w-100" src={picture1} alt="First slide" />
+        <img className="d-block w-100" src={picture5} alt="First slide" />
         <Carousel.Caption>
           <h5>PARTNER COLLECTIONS</h5>
           <p>
@@ -48,7 +48,7 @@ function HomePage() {
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-        <img className="d-block w-100" src={picture5} alt="Third slide" />
+        <img className="d-block w-100" src={picture1} alt="Third slide" />
         <Carousel.Caption>
           <h5>MOVIE MAGIC</h5>
           <p>Barbie The Movie Dolls and More</p>

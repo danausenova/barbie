@@ -82,7 +82,8 @@ export default function Navbar({ window }) {
                 display: { xs: "block", sm: "block" },
                 "& .MuiDrawer-paper": {
                   boxSizing: "border-box",
-                  width: "30%",
+                  width: "25%",
+                  backgroundColor: "#FFBEE3",
                 },
               }}
             >
