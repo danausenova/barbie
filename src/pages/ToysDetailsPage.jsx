@@ -21,6 +21,10 @@ export default function ToysDetailsPage() {
 
   React.useEffect(() => {
     getOneToy(id);
+    document.body.classList.add("body-favorite");
+    return () => {
+      document.body.classList.remove("body-favorite");
+    };
   }, []);
 
   React.useEffect(() => {
@@ -57,7 +61,6 @@ export default function ToysDetailsPage() {
         sx={{
           width: 650,
           height: 500,
-          backgroundColor: "#FFBEE3",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
