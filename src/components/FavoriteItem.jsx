@@ -7,37 +7,27 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
-import { Button, Menu, MenuItem } from "@mui/material";
-import { useToyContext } from "../contexts/ToyContext";
 import { useCartContext } from "../contexts/CartContext";
 import ClearIcon from "@mui/icons-material/Clear";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useFavoriteContext } from "../contexts/FavoriteContext";
 
-export default function ToyItem({ item }) {
-  const { deleteToy } = useToyContext();
+export default function FavoriteItem({ item }) {
   const { addToyToCart, deleteToyFromCart, isAlreadyInCart } = useCartContext();
-  const { addToyToFav, deleteToyFromFav } = useFavoriteContext();
+  const { deleteToyFromFav } = useFavoriteContext();
   const [hovered, setHovered] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(true);
 
-  const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
-  const open = Boolean(anchorEl);
+
   const ClickNavigate = () => {
     navigate(`/details/${item.id}`);
   };
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
   const handleFavoriteClick = () => {
-    setIsFavorite(!isFavorite);
+    setIsFavorite(false);
+    deleteToyFromFav(item.id);
   };
 
   const handleMouseEnter = () => {
@@ -54,7 +44,7 @@ export default function ToyItem({ item }) {
         position: "relative",
         maxWidth: 345,
         "&:hover": {
-          boxShadow: "10px 10px 30px #f48fb1, -10px -10px 60px #f06292",
+          boxShadow: "10px 10px 30px #ED50F1, -10px -10px 60px #FDB9FC",
           transform: "scale(1.01)",
         },
       }}
@@ -69,42 +59,6 @@ export default function ToyItem({ item }) {
         onClick={ClickNavigate}
       />
       <CardContent>
-        <IconButton
-          aria-label="settings"
-          onClick={handleClick}
-          sx={{
-            position: "absolute",
-            top: "10px",
-            right: "10px",
-            color: "#e91e63",
-          }}
-        >
-          <MoreVertIcon />
-        </IconButton>
-        <Menu
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          MenuListProps={{
-            "aria-labelledby": "basic-button",
-          }}
-        >
-          <MenuItem
-            component={Button}
-            sx={{ textTransform: "capitalize", color: "red" }}
-            onClick={() => deleteToy(item.id)}
-          >
-            Delete
-          </MenuItem>
-          <MenuItem
-            onClick={() => navigate(`/edit/${item.id}`)}
-            component={Button}
-            sx={{ textTransform: "capitalize", width: "100%" }}
-          >
-            Edit
-          </MenuItem>
-        </Menu>
         <Typography
           variant="h6"
           component="div"
@@ -125,14 +79,7 @@ export default function ToyItem({ item }) {
       <CardActions disableSpacing>
         <IconButton
           aria-label="add to favorites"
-          onClick={() => {
-            handleFavoriteClick();
-            if (!isFavorite) {
-              addToyToFav(item);
-            } else {
-              deleteToyFromFav(item.id);
-            }
-          }}
+          onClick={handleFavoriteClick}
           sx={{
             position: "absolute",
             bottom: "20px",
