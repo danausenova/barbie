@@ -12,14 +12,14 @@ import FavoriteContext from "./contexts/FavoriteContext";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
-    <RegistrContext>
-      <FavoriteContext>
-        <CartContext>
+    <CartContext>
+      <RegistrContext>
+        <FavoriteContext>
           <ToyContext>
             <App />
           </ToyContext>
-        </CartContext>
-      </FavoriteContext>
-    </RegistrContext>
+        </FavoriteContext>
+      </RegistrContext>
+    </CartContext>
   </BrowserRouter>
 );

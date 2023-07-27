@@ -22,8 +22,19 @@ const CartContext = ({ children }) => {
     setCart(data);
   }
 
+  // function addToyToCart(toy) {
+  //   const data = getDataFromLS();
+  //   data.toys.push({ ...toy, count: 1, subPrice: toy.price });
+  //   data.totalPrice = data.toys.reduce((acc, item) => acc + item.subPrice, 0);
+  //   localStorage.setItem("cart", JSON.stringify(data));
+  //   getCart();
+  // }
+
   function addToyToCart(toy) {
     const data = getDataFromLS();
+    if (!data.toys) {
+      data.toys = []; // Инициализируем массив, если его нет
+    }
     data.toys.push({ ...toy, count: 1, subPrice: toy.price });
     data.totalPrice = data.toys.reduce((acc, item) => acc + item.subPrice, 0);
     localStorage.setItem("cart", JSON.stringify(data));
@@ -66,11 +77,23 @@ const CartContext = ({ children }) => {
     getCart();
   }
 
+  // function isAlreadyInCart(id) {
+  //   const data = getDataFromLS();
+  //   let isInCart = false;
+  //   if (data.toys.length > 0) {
+  //     isInCart = data.toys.some((item) => item.id === id);
+  //   }
+  //   return isInCart;
+  // }
+
   function isAlreadyInCart(id) {
     const data = getDataFromLS();
-    const isInCart = data.toys.some((item) => item.id === id);
-    return isInCart;
+    if (!data.toys) {
+      return false; // Возвращаем false, если корзина пуста или её данные отсутствуют
+    }
+    return data.toys.some((item) => item.id === id);
   }
+
   const value = {
     cart,
     getCart,
