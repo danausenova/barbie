@@ -231,27 +231,5 @@
       "id": 24
     }
   ],
-  "comments": [
-    {
-      "comment": "Дана пушка!\n",
-      "email": "danausenova@mail.ru",
-      "postId": "3",
-      "date": "2023-07-28T09:31:49.767Z",
-      "id": 1
-    },
-    {
-      "comment": "Дана крутышка!",
-      "email": "altynbek@gmail.com",
-      "postId": "1",
-      "date": "2023-07-28T09:41:12.821Z",
-      "id": 2
-    },
-    {
-      "comment": "Дана звЭрь!",
-      "email": "koshokov996@gmail.com",
-      "postId": "4",
-      "date": "2023-07-28T11:04:42.662Z",
-      "id": 3
-    }
-  ]
+  "comments": []
 }

@@ -16,6 +16,8 @@ import ClearIcon from "@mui/icons-material/Clear";
 import { useNavigate, useParams } from "react-router-dom";
 import { useFavoriteContext } from "../contexts/FavoriteContext";
 import { useRegistrContext } from "../contexts/RegistrContext";
+import { Rating } from "@mui/material";
+import { useCommentContext } from "../contexts/CommentContext";
 
 export default function ToyItem({ item }) {
   const { isAdmin } = useRegistrContext();
@@ -24,6 +26,16 @@ export default function ToyItem({ item }) {
   const { addToyToFav, deleteToyFromFav } = useFavoriteContext();
   const [hovered, setHovered] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
+  const { review } = useCommentContext();
+
+  let filteredReviews = review.filter((i) => i.postId == item.id);
+  let totalRating = filteredReviews.reduce((acc, reviewItem) => {
+    return acc + reviewItem.rating;
+  }, 0);
+
+  let averageRating = totalRating / filteredReviews.length || 0;
+
+  console.log(averageRating);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
@@ -65,13 +77,14 @@ export default function ToyItem({ item }) {
     >
       <CardMedia
         component="img"
-        height="350"
+        height="330"
         image={hovered ? item.image2 : item.image1}
         alt={item.title}
         onClick={ClickNavigate}
       />
-      <CardContent>
+      <CardContent sx={{ margin: 0 }}>
         <CardHeader
+          sx={{ padding: 0, marginTop: 0 }}
           action={
             isAdmin() && (
               <>
@@ -120,15 +133,15 @@ export default function ToyItem({ item }) {
           variant="h6"
           component="div"
           color="black"
-          sx={{ textAlign: "center" }}
+          sx={{ textAlign: "center", padding: 0, fontSize: "16px" }}
         >
-          {item.title}
+          {item.title.slice(0, 30)}...
         </Typography>
         <Typography
           variant="h6"
           component="div"
           color="text.secondary"
-          sx={{ textAlign: "center" }}
+          sx={{ textAlign: "center", fontSize: "16px" }}
         >
           ${item.price}
         </Typography>
@@ -146,7 +159,7 @@ export default function ToyItem({ item }) {
           }}
           sx={{
             position: "absolute",
-            bottom: "20px",
+            bottom: "15px",
             left: "10px",
             color: isFavorite ? "#ff4081" : "inherit",
           }}
@@ -158,7 +171,7 @@ export default function ToyItem({ item }) {
             onClick={() => deleteToyFromCart(item.id)}
             style={{
               position: "absolute",
-              bottom: "20px",
+              bottom: "15px",
               left: "45px",
             }}
           >
@@ -170,7 +183,7 @@ export default function ToyItem({ item }) {
             onClick={() => addToyToCart(item)}
             style={{
               position: "absolute",
-              bottom: "28px",
+              bottom: "23px",
               left: "50px",
             }}
           >
@@ -178,6 +191,12 @@ export default function ToyItem({ item }) {
           </ShoppingBagOutlinedIcon>
         )}
       </CardActions>
+      <Rating
+        name="read-only"
+        value={averageRating}
+        readOnly
+        style={{ position: "absolute", right: "25px", bottom: "20px" }}
+      />
     </Card>
   );
 }

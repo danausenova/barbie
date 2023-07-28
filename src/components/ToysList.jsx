@@ -2,12 +2,15 @@ import React, { useEffect } from "react";
 import { useToyContext } from "../contexts/ToyContext";
 import ToyItem from "./ToyItem";
 import { Spinner } from "react-bootstrap";
+import { useCommentContext } from "../contexts/CommentContext";
 
 const ToysList = () => {
   const { toys, getToys } = useToyContext();
+  const { getComments } = useCommentContext();
   useEffect(() => {
     setTimeout(() => {
       getToys();
+      getComments();
     }, 100);
   }, []);
 
