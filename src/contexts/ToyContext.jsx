@@ -1,4 +1,3 @@
-
 import React, {
   createContext,
   useContext,
@@ -6,11 +5,11 @@ import React, {
   useReducer,
   useState,
 } from "react";
-import { ACTIONS, API, LIMIT  } from "../utils/consts";
+import { ACTIONS, API, LIMIT } from "../utils/consts";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 import { async } from "q";
-
+import { notify } from "../components/Toastify";
 
 const toyContext = createContext();
 export function useToyContext() {
@@ -66,23 +65,25 @@ const ToyContext = ({ children }) => {
         payload: totalCount,
       });
     } catch (e) {
-      console.log(e);
+      notify(`${e.response.status}: ${e.response.statusText}`, "error");
     }
   }
 
   async function addToy(newToy) {
     try {
       await axios.post(API, newToy);
+      notify("Toy added successfully");
     } catch (e) {
-      console.log(e);
+      notify(`${e.response.status}: ${e.response.statusText}`, "error");
     }
   }
   async function deleteToy(id) {
     try {
       await axios.delete(`${API}/${id}`);
       getToys();
+      notify("Successfully deleted");
     } catch (e) {
-      console.log(e);
+      notify(`${e.response.status}: ${e.response.statusText}`, "error");
     }
   }
 
@@ -102,8 +103,9 @@ const ToyContext = ({ children }) => {
   async function editToy(id, newToy) {
     try {
       await axios.patch(`${API}/${id}`, newToy);
+      notify("Successfully saved changes");
     } catch (e) {
-      console.log(e);
+      notify(`${e.response.status}: ${e.response.statusText}`, "error");
     }
   }
   const value = {

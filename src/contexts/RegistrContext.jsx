@@ -8,6 +8,7 @@ import {
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { auth } from "../firebase";
 import { ADMINS } from "../utils/consts";
+import { notify } from "../components/Toastify";
 
 const registrContext = createContext();
 
@@ -23,7 +24,7 @@ const RegistrContext = ({ children }) => {
       await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(auth.currentUser, { displayName, photoURL });
     } catch (e) {
-      console.log(e);
+      notify(e.code.split("/")[1], "error");
     }
   }
 
@@ -31,7 +32,7 @@ const RegistrContext = ({ children }) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
     } catch (e) {
-      console.log(e);
+      notify(e.code.split("/")[1], "error");
     }
   }
 
@@ -39,7 +40,7 @@ const RegistrContext = ({ children }) => {
     try {
       await signOut(auth);
     } catch (e) {
-      console.log(e);
+      notify(e.code.split("/")[1], "error");
     }
   }
 

@@ -9,6 +9,8 @@ import ToyContext from "./contexts/ToyContext";
 import CartContext from "./contexts/CartContext";
 import FavoriteContext from "./contexts/FavoriteContext";
 import CommentContext from "./contexts/CommentContext";
+import Toastify from "./components/Toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -18,6 +20,7 @@ root.render(
         <RegistrContext>
           <FavoriteContext>
             <ToyContext>
+              <Toastify />
               <App />
             </ToyContext>
           </FavoriteContext>
