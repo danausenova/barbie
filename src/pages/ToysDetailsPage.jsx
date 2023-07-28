@@ -48,25 +48,39 @@ export default function ToysDetailsPage() {
     >
       <Box sx={{ display: "flex", flexWrap: "wrap" }}>
         <ImageList
-          sx={{ width: "50%", height: 450 }}
+          sx={{
+            width: "100%",
+            height: 450,
+            "@media (min-width: 768px)": { width: "50%" },
+          }}
           variant="standard"
           cols={3}
           gap={8}
         >
           <ImageListItem>
-            <img src={oneToy.image1} width="500" />
+            <img
+              src={oneToy.image1}
+              style={{ width: "100%", maxWidth: "none" }}
+            />
           </ImageListItem>
           <ImageListItem>
-            <img src={oneToy.image2} width="500" />
+            <img
+              src={oneToy.image2}
+              style={{ width: "100%", maxWidth: "none" }}
+            />
           </ImageListItem>
           <ImageListItem>
-            <img src={oneToy.image3} width="500" />
+            <img
+              src={oneToy.image3}
+              style={{ width: "100%", maxWidth: "none" }}
+            />
           </ImageListItem>
         </ImageList>
         <Box
           sx={{
-            width: "50%",
+            width: "100%",
             height: 450,
+            "@media (min-width: 768px)": { width: "50%" },
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
