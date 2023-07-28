@@ -55,6 +55,7 @@ export default function Navbar({ window }) {
   }
   const container =
     window !== undefined ? () => window().document.body : undefined;
+  console.log(user);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -127,10 +128,7 @@ export default function Navbar({ window }) {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar
-                    alt="Remy Sharp"
-                    src="https://www.youloveit.ru/uploads/posts/2019-05/1558886385_youloveit_ru_avatarki_barbie_priklucheniya_v_dome_mechty05.png"
-                  />
+                  <Avatar alt="12" src={user.photoURL} />
                 </IconButton>
               </Tooltip>
               <Menu

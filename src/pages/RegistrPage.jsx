@@ -13,10 +13,18 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useRegistrContext } from "../contexts/RegistrContext";
-import { Copyright } from "@mui/icons-material";
 import { Navigate } from "react-router-dom";
 
-const defaultTheme = createTheme();
+const customTheme = createTheme({
+  palette: {
+    primary: {
+      main: "#79E0EE",
+    },
+    background: {
+      default: "#ffbee3",
+    },
+  },
+});
 
 export default function RegistrPage() {
   const [isLogin, setIsLogin] = React.useState(true);
@@ -29,7 +37,12 @@ export default function RegistrPage() {
     if (isLogin) {
       login(data.get("email"), data.get("password"));
     } else {
-      register(data.get("email"), data.get("password"));
+      register(
+        data.get("email"),
+        data.get("password"),
+        data.get("displayName"),
+        data.get("photoURL")
+      );
     }
   };
 
@@ -38,7 +51,7 @@ export default function RegistrPage() {
   }
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={customTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -79,12 +92,33 @@ export default function RegistrPage() {
               id="password"
               autoComplete="current-password"
             />
-
+            {!isLogin && (
+              <>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="name"
+                  label="Name"
+                  name="displayName"
+                  autoComplete="name"
+                />
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="image"
+                  label="Image"
+                  name="photoURL"
+                  autoComplete="image"
+                />
+              </>
+            )}
             <Button
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 2, "&:hover": { backgroundColor: "#FFBDE6" } }}
             >
               {isLogin ? "Sign In" : "Sign Up"}
             </Button>
@@ -95,6 +129,7 @@ export default function RegistrPage() {
                   onClick={() => setIsLogin((prev) => !prev)}
                   href="#"
                   variant="body2"
+                  sx={{ color: "#333" }}
                 >
                   {isLogin
                     ? "Don't have an account? Sign Up"
@@ -104,7 +139,6 @@ export default function RegistrPage() {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
   );

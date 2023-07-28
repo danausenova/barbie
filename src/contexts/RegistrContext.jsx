@@ -3,6 +3,7 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { auth } from "../firebase";
@@ -17,9 +18,10 @@ export function useRegistrContext() {
 const RegistrContext = ({ children }) => {
   const [user, setUser] = useState(true);
 
-  async function register(email, password) {
+  async function register(email, password, displayName, photoURL) {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
+      await updateProfile(auth.currentUser, { displayName, photoURL });
     } catch (e) {
       console.log(e);
     }
