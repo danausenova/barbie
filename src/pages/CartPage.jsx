@@ -13,9 +13,9 @@ const CartPage = () => {
   }, []);
   return (
     <section className="section-cart">
-      {/* <header className="section-cart__header">
-        <div className="container">
-          <h1 className="title-1">Cart</h1>
+      {/* <header classNameName="section-cart__header">
+        <div classNameName="container">
+          <h1 classNameName="title-1">Cart</h1>
         </div>
       </header> */}
       <div className="section-cart__body">
@@ -86,45 +86,45 @@ const CartPage = () => {
             </footer>
             <section>
               <div className="cart-order">
-                <button class="btn">
-                  <div class="wrapper">
-                    <p class="text">Order</p>
+                <button className="btn">
+                  <div className="wrapper">
+                    <p className="text">Order</p>
 
-                    <div class="flower flower1">
-                      <div class="petal one"></div>
-                      <div class="petal two"></div>
-                      <div class="petal three"></div>
-                      <div class="petal four"></div>
+                    <div className="flower flower1">
+                      <div className="petal one"></div>
+                      <div className="petal two"></div>
+                      <div className="petal three"></div>
+                      <div className="petal four"></div>
                     </div>
-                    <div class="flower flower2">
-                      <div class="petal one"></div>
-                      <div class="petal two"></div>
-                      <div class="petal three"></div>
-                      <div class="petal four"></div>
+                    <div className="flower flower2">
+                      <div className="petal one"></div>
+                      <div className="petal two"></div>
+                      <div className="petal three"></div>
+                      <div className="petal four"></div>
                     </div>
-                    <div class="flower flower3">
-                      <div class="petal one"></div>
-                      <div class="petal two"></div>
-                      <div class="petal three"></div>
-                      <div class="petal four"></div>
+                    <div className="flower flower3">
+                      <div className="petal one"></div>
+                      <div className="petal two"></div>
+                      <div className="petal three"></div>
+                      <div className="petal four"></div>
                     </div>
-                    <div class="flower flower4">
-                      <div class="petal one"></div>
-                      <div class="petal two"></div>
-                      <div class="petal three"></div>
-                      <div class="petal four"></div>
+                    <div className="flower flower4">
+                      <div className="petal one"></div>
+                      <div className="petal two"></div>
+                      <div className="petal three"></div>
+                      <div className="petal four"></div>
                     </div>
-                    <div class="flower flower5">
-                      <div class="petal one"></div>
-                      <div class="petal two"></div>
-                      <div class="petal three"></div>
-                      <div class="petal four"></div>
+                    <div className="flower flower5">
+                      <div className="petal one"></div>
+                      <div className="petal two"></div>
+                      <div className="petal three"></div>
+                      <div className="petal four"></div>
                     </div>
-                    <div class="flower flower6">
-                      <div class="petal one"></div>
-                      <div class="petal two"></div>
-                      <div class="petal three"></div>
-                      <div class="petal four"></div>
+                    <div className="flower flower6">
+                      <div className="petal one"></div>
+                      <div className="petal two"></div>
+                      <div className="petal three"></div>
+                      <div className="petal four"></div>
                     </div>
                   </div>
                 </button>

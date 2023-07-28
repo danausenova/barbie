@@ -9,14 +9,16 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
-import { Button, Menu, MenuItem } from "@mui/material";
+import { Button, CardHeader, Menu, MenuItem } from "@mui/material";
 import { useToyContext } from "../contexts/ToyContext";
 import { useCartContext } from "../contexts/CartContext";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useNavigate, useParams } from "react-router-dom";
 import { useFavoriteContext } from "../contexts/FavoriteContext";
+import { useRegistrContext } from "../contexts/RegistrContext";
 
 export default function ToyItem({ item }) {
+  const { isAdmin } = useRegistrContext();
   const { deleteToy } = useToyContext();
   const { addToyToCart, deleteToyFromCart, isAlreadyInCart } = useCartContext();
   const { addToyToFav, deleteToyFromFav } = useFavoriteContext();
@@ -69,42 +71,51 @@ export default function ToyItem({ item }) {
         onClick={ClickNavigate}
       />
       <CardContent>
-        <IconButton
-          aria-label="settings"
-          onClick={handleClick}
-          sx={{
-            position: "absolute",
-            top: "10px",
-            right: "10px",
-            color: "#e91e63",
-          }}
-        >
-          <MoreVertIcon />
-        </IconButton>
-        <Menu
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          MenuListProps={{
-            "aria-labelledby": "basic-button",
-          }}
-        >
-          <MenuItem
-            component={Button}
-            sx={{ textTransform: "capitalize", color: "red" }}
-            onClick={() => deleteToy(item.id)}
-          >
-            Delete
-          </MenuItem>
-          <MenuItem
-            onClick={() => navigate(`/edit/${item.id}`)}
-            component={Button}
-            sx={{ textTransform: "capitalize", width: "100%" }}
-          >
-            Edit
-          </MenuItem>
-        </Menu>
+        <CardHeader
+          action={
+            isAdmin() && (
+              <>
+                <IconButton
+                  aria-label="settings"
+                  onClick={handleClick}
+                  sx={{
+                    position: "absolute",
+                    top: "10px",
+                    right: "10px",
+                    color: "#e91e63",
+                  }}
+                >
+                  <MoreVertIcon />
+                </IconButton>
+                <Menu
+                  id="basic-menu"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  MenuListProps={{
+                    "aria-labelledby": "basic-button",
+                  }}
+                >
+                  <MenuItem
+                    component={Button}
+                    sx={{ textTransform: "capitalize", color: "red" }}
+                    onClick={() => deleteToy(item.id)}
+                  >
+                    Delete
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => navigate(`/edit/${item.id}`)}
+                    component={Button}
+                    sx={{ textTransform: "capitalize", width: "100%" }}
+                  >
+                    Edit
+                  </MenuItem>
+                </Menu>
+              </>
+            )
+          }
+        ></CardHeader>
+
         <Typography
           variant="h6"
           component="div"
