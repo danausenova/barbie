@@ -53,6 +53,7 @@ export default function Navbar({ window }) {
       return pages;
     }
   }
+
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
