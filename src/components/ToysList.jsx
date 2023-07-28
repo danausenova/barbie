@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useToyContext } from "../contexts/ToyContext";
 import ToyItem from "./ToyItem";
+import { Spinner } from "react-bootstrap";
 
 const ToysList = () => {
   const { toys, getToys } = useToyContext();
@@ -20,9 +21,16 @@ const ToysList = () => {
         gap: "20px",
       }}
     >
-      {toys.map((item) => (
-        <ToyItem item={item} key={item.id} />
-      ))}
+      {toys.length > 0 ? (
+        toys.map((item) => <ToyItem item={item} key={item.id} />)
+      ) : (
+        <Spinner
+          animation="grow"
+          variant="danger"
+          size="xxl"
+          className="m-5 p-5"
+        />
+      )}
     </div>
   );
 };
