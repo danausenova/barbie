@@ -10,6 +10,7 @@ import {
   TextField,
   Typography,
   createTheme,
+  Rating,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import {
@@ -23,15 +24,30 @@ import { useRegistrContext } from "../contexts/RegistrContext";
 import { useCommentContext } from "../contexts/CommentContext";
 import { purple } from "@mui/material/colors";
 import ClearIcon from "@mui/icons-material/Clear";
+import StarOutlineIcon from "@mui/icons-material/StarOutline";
 
 const Comments = ({ id }) => {
   const [inpVal, setInpVal] = useState("");
   const { user, isAdmin } = useRegistrContext();
   const { review, addComment, deleteComment } = useCommentContext();
+  const [value, setValue] = React.useState(0);
+  const [hover, setHover] = React.useState(-1);
+
+  const labels = {
+    1: "Useless",
+    2: "Poor",
+    3: "Ok",
+    4: "Good",
+    5: "Excellent",
+  };
+
+  function getLabelText(value) {
+    return `${value} Star${value !== 1 ? "s" : ""}, ${labels[value]}`;
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!inpVal.trim()) {
+    if (!inpVal.trim() || !value) {
       return;
     }
     const data = {
@@ -39,6 +55,7 @@ const Comments = ({ id }) => {
       email: user.email,
       postId: id,
       date: new Date(),
+      rating: value,
     };
 
     addComment(data);
@@ -89,6 +106,36 @@ const Comments = ({ id }) => {
                 multiline
                 rows={2}
               />
+              <Box
+                sx={{
+                  width: 200,
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <Rating
+                  name="hover-feedback"
+                  value={value}
+                  getLabelText={getLabelText}
+                  onChange={(event, newValue) => {
+                    setValue(newValue);
+                  }}
+                  onChangeActive={(event, newHover) => {
+                    setHover(newHover);
+                  }}
+                  emptyIcon={
+                    <StarOutlineIcon
+                      style={{ opacity: 0.55 }}
+                      fontSize="inherit"
+                    />
+                  }
+                />
+                {value !== null && (
+                  <Box sx={{ ml: 2 }}>
+                    {labels[hover !== -1 ? hover : value]}
+                  </Box>
+                )}
+              </Box>
 
               <Button
                 type="submit"
@@ -141,6 +188,12 @@ const Comments = ({ id }) => {
                   <Typography variant="body2" color="text.secondary">
                     {item.comment}
                   </Typography>
+                  <Rating
+                    name="read-only"
+                    value={item.rating}
+                    readOnly
+                    sx={{ position: "relative", top: "15px" }}
+                  />
                 </CardContent>
               </Card>
             ))
