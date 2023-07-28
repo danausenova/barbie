@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState } from "react";
 import { APIC } from "../utils/consts";
 import axios from "axios";
+import { notify } from "../components/Toastify";
 
 const commentContext = createContext();
 export function useCommentContext() {
@@ -14,7 +15,7 @@ const CommentContext = ({ children }) => {
       const { data } = await axios(APIC);
       setReview(data);
     } catch (e) {
-      console.log(e);
+      notify(`${e.response.status}: ${e.response.statusText}`, "error");
     }
   }
 
@@ -22,8 +23,9 @@ const CommentContext = ({ children }) => {
     try {
       await axios.post(APIC, obj);
       getComments();
+      notify("Comment added successfully");
     } catch (e) {
-      console.log(e);
+      notify(`${e.response.status}: ${e.response.statusText}`, "error");
     }
   }
 
@@ -31,8 +33,9 @@ const CommentContext = ({ children }) => {
     try {
       await axios.delete(`${APIC}/${id}`);
       getComments();
+      notify("Successfully deleted");
     } catch (e) {
-      console.log(e);
+      notify(`${e.response.status}: ${e.response.statusText}`, "error");
     }
   }
   const value = { review, getComments, addComment, deleteComment };
