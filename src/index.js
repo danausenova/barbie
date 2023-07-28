@@ -8,18 +8,21 @@ import RegistrContext from "./contexts/RegistrContext";
 import ToyContext from "./contexts/ToyContext";
 import CartContext from "./contexts/CartContext";
 import FavoriteContext from "./contexts/FavoriteContext";
+import CommentContext from "./contexts/CommentContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
-    <CartContext>
-      <RegistrContext>
-        <FavoriteContext>
-          <ToyContext>
-            <App />
-          </ToyContext>
-        </FavoriteContext>
-      </RegistrContext>
-    </CartContext>
+    <CommentContext>
+      <CartContext>
+        <RegistrContext>
+          <FavoriteContext>
+            <ToyContext>
+              <App />
+            </ToyContext>
+          </FavoriteContext>
+        </RegistrContext>
+      </CartContext>
+    </CommentContext>
   </BrowserRouter>
 );
