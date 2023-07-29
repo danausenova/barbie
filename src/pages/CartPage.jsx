@@ -3,11 +3,12 @@ import Cross from "../components/picture/cross.svg";
 import Down from "../components/picture/icon-down.svg";
 import Up from "../components/picture/icon-up.svg";
 import { useCartContext } from "../contexts/CartContext";
+import { useNavigate } from "react-router-dom";
 
 const CartPage = () => {
   const { cart, getCart, deleteToyFromCart, decreaseCount, increaseCount } =
     useCartContext();
-
+  const navigate = useNavigate();
   useEffect(() => {
     getCart();
   }, []);
@@ -23,8 +24,8 @@ const CartPage = () => {
           <section className="cart">
             <header className="cart-header">
               <div className="cart-header__title">Title</div>
-              <div className="cart-header__count">Amount</div>
-              <div className="cart-header__cost">Price</div>
+              <div className="cart-header__count">Price</div>
+              <div className="cart-header__cost">Amount</div>
               <div className="cart-header__cost">SubPrice</div>
             </header>
             {cart.toys.map((item) => (
@@ -86,7 +87,7 @@ const CartPage = () => {
             </footer>
             <section>
               <div className="cart-order">
-                <button className="btn">
+                <button className="btn" onClick={() => navigate("/payment")}>
                   <div className="wrapper">
                     <p className="text">Order</p>
 
