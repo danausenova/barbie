@@ -53,6 +53,7 @@ const Comments = ({ id }) => {
     const data = {
       comment: inpVal,
       email: user.email,
+      photoURL: user.photoURL,
       postId: id,
       date: new Date(),
       rating: value,
@@ -171,7 +172,7 @@ const Comments = ({ id }) => {
             .map((item, index) => (
               <Card key={item.id || index} sx={{ maxWidth: 345 }}>
                 <CardHeader
-                  avatar={<Avatar src={user.photoURL} />}
+                  avatar={<Avatar src={item.photoURL} />}
                   title={item.email}
                   subheader={item.date}
                 />
