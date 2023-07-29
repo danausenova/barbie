@@ -10,6 +10,8 @@ import CartPage from "../pages/CartPage";
 import ToysDetailsPage from "../pages/ToysDetailsPage";
 import FavoritePage from "../pages/FavoritePage";
 import SecondLayout from "../layouts/SecondLayout";
+import PaymentPage from "../pages/PaymentPage";
+import OrderPage from "../pages/OrderPage";
 
 const MainRoutes = () => {
   return (
@@ -17,14 +19,16 @@ const MainRoutes = () => {
       <Route element={<MainLayout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/catalog" element={<CatalogPage />} />
-        <Route path="/auth" element={<RegistrPage />} />
         <Route path="/details/:id" element={<ToysDetailsPage />} />
       </Route>
       <Route element={<SecondLayout />}>
+        <Route path="/auth" element={<RegistrPage />} />
         <Route path="/add" element={<AddToyPage />} />
         <Route path="/edit/:id" element={<EditToyPage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/favorite" element={<FavoritePage />} />
+        <Route path="/payment" element={<PaymentPage />} />
+        <Route path="/order" element={<OrderPage />} />
       </Route>
     </Routes>
   );

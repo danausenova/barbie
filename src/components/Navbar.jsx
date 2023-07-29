@@ -56,7 +56,6 @@ export default function Navbar({ window }) {
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
-  console.log(user);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
