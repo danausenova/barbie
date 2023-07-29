@@ -35,8 +35,6 @@ export default function ToyItem({ item }) {
 
   let averageRating = totalRating / filteredReviews.length || 0;
 
-  console.log(averageRating);
-
   const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
   const open = Boolean(anchorEl);
